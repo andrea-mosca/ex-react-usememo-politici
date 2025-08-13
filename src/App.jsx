@@ -1,5 +1,23 @@
 import { useState, useEffect } from "react";
+const CardPolitico = ({ image, name, position, biography }) => {
+  console.log(name);
 
+  return (
+    <div className="card m-2">
+      <img
+        src={image}
+        alt=""
+        className="card-img-top"
+        style={{ width: "100px", height: "100px", objectFit: "cover" }}
+      />
+      <div className="card-body">
+        <h5 className="card-title">{name}</h5>
+        <h6 className="card-subtitle">{position}</h6>
+        <p className="card-text">{biography}</p>
+      </div>
+    </div>
+  );
+};
 function App() {
   const [politici, setPolitici] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,19 +55,7 @@ function App() {
       />
       <div>
         {politiciFiltrati.map((p, index) => (
-          <div className="card m-2" key={index}>
-            <img
-              src={p.image}
-              alt=""
-              className="card-img-top"
-              style={{ width: "100px", height: "100px", objectFit: "cover" }}
-            />
-            <div className="card-body">
-              <h5 className="card-title">{p.name}</h5>
-              <h6 className="card-subtitle">{p.position}</h6>
-              <p className="card-text">{p.biography}</p>
-            </div>
-          </div>
+          <CardPolitico key={index} {...p} />
         ))}
       </div>
     </div>
