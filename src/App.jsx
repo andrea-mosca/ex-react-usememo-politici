@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-const CardPolitico = ({ image, name, position, biography }) => {
+import { useState, useEffect, memo } from "react";
+const CardPolitico = memo(({ image, name, position, biography }) => {
   console.log(name);
 
   return (
@@ -17,7 +17,7 @@ const CardPolitico = ({ image, name, position, biography }) => {
       </div>
     </div>
   );
-};
+});
 function App() {
   const [politici, setPolitici] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
