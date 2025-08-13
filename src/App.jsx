@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [politici, setPolitici] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
   useEffect(() => {
     const chiamataPolitici = async () => {
       try {
@@ -16,10 +18,25 @@ function App() {
     chiamataPolitici();
   }, []);
 
+  const politiciFiltrati = politici.filter((p) =>
+    `${p.name} ${p.biography}`.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container mt-5 mx-auto">
+      <h1>Lista Politici</h1>
+      <label htmlFor="filtro-politici">
+        cerca un politico o la sua biografia
+      </label>
+      <input
+        className="form-control"
+        type="text"
+        id="filtro-politici"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <div>
-        {politici.map((p, index) => (
+        {politiciFiltrati.map((p, index) => (
           <div className="card m-2" key={index}>
             <img
               src={p.image}
