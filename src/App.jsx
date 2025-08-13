@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [politici, setPolitici] = useState([]);
-  const chiamataPolitici = async () => {
-    const res = await fetch(`http://localhost:3333/politicians`);
-    const data = await res.json();
-    setPolitici(data);
-  };
+  useEffect(() => {
+    const chiamataPolitici = async () => {
+      try {
+        const res = await fetch("http://localhost:3333/politicians");
+        const data = await res.json();
+        setPolitici(data);
+      } catch (error) {
+        console.error("Errore nella chiamata:", error);
+      }
+    };
 
-  chiamataPolitici();
+    chiamataPolitici();
+  }, []);
 
   return (
     <div className="container mt-5 mx-auto">
